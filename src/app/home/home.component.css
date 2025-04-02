@@ -1,0 +1,21 @@
+.home-container{
+    text-align: center;
+    padding: 20px;
+}
+
+div h2{
+    font-family: "Sriracha", cursive;
+    color: #4CAF56;
+}
+
+ul li{
+    list-style-type: square;
+    text-align: left;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.font-style-quotes{
+    font-style: italic;
+    font-weight: 500;
+}
