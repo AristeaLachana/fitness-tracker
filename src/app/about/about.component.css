@@ -1,0 +1,23 @@
+.about-container {
+    padding: 20px;
+    text-align: left;
+}
+
+h2, h3 {
+    color: #4CAF56;
+}
+
+ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+a {
+    color: #4CAF56;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
