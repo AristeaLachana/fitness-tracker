@@ -1,0 +1,21 @@
+.dashboard-container {
+    padding: 20px;
+    text-align: left;
+}
+
+h2 {
+    color: #4CAF56;
+}
+
+.metrics {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.metric {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    width: 20%;
+}
