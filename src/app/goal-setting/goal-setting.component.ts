@@ -31,8 +31,6 @@ export class GoalSettingComponent {
         achieved: false
       };
       this.workoutService.addGoal(newGoal);
-      //this.goals.push(newGoal);
-      //this.saveGoals();
       this.goalSaved = true;
       this.resetForm();
     }
@@ -41,7 +39,17 @@ export class GoalSettingComponent {
   loadGoals() {
     this.workoutService.goals$.subscribe(goals => {
       this.goals = goals;
-    })
+    });
+  }
+
+  toggleGoalAchieved(goal:Goal){
+    goal.achieved = !goal.achieved;
+    this.workoutService.addGoal(goal);
+  }
+
+  deleteGoal(goal : Goal) {
+    this.workoutService.removeGoal(goal.id);
+    this.goals = this.goals.filter(g => g.id !== goal.id);
   }
 
   resetForm() {

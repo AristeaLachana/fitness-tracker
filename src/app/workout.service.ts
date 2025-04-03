@@ -36,18 +36,59 @@ export class WorkoutService {
   addWorkout(workout : Workout) {
     this.workouts.push(workout);
     this.workoutsSubject.next(this.workouts);
+    this.saveWorkouts();
+  }
+
+  removeGoal(goalId: number){
+    this.goals = this.goals.filter(goal => goal.id !== goalId);
+    this.goalsSubject.next(this.goals);
+    this.saveGoals();
   }
 
   addGoal(goal : Goal) {
-    this.goals.push(goal);
+    const index = this.goals.findIndex(g => g.id === goal.id);
+    if (index > -1){
+      this.goals[index] = goal; //update existing goal
+    } else {
+      this.goals.push(goal); //add new goal
+    }
     this.goalsSubject.next(this.goals);
+    this.saveGoals();
   }
 
-  constructor() { }
+  constructor() {
+    this.loadWorkouts();
+    this.loadGoals();
+  }
+
   getWorkouts(){
     return this.workouts;
   }
   getGoals() {
     return this.goals;
+  }
+
+  private loadWorkouts() {
+    const storedWorkouts = localStorage.getItem('workouts');
+    if (storedWorkouts) {
+      this.workouts = JSON.parse(storedWorkouts);
+      this.workoutsSubject.next(this.workouts);
+    }
+  }
+
+  private loadGoals() {
+    const storedGoals = localStorage.getItem('goals');
+    if (storedGoals) {
+      this.goals = JSON.parse(storedGoals);
+      this.goalsSubject.next(this.goals);
+    }
+  }
+
+  private saveWorkouts() {
+    localStorage.setItem('workouts', JSON.stringify(this.workouts));
+  }
+
+  private saveGoals() {
+    localStorage.setItem('goals', JSON.stringify(this.goals));
   }
 }

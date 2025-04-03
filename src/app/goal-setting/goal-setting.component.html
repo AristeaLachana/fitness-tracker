@@ -19,7 +19,11 @@
     <ul>
         <li *ngFor="let goal of goals">
             {{ goal.type }} - Target Weight: {{ goal.targetValue }} by {{ goal.deadline | date}}
-            <span *ngIf="goal.achieved">Achieved</span>
+            <span *ngIf="goal.achieved"><strong>Achieved </strong></span>
+            <button (click)="toggleGoalAchieved(goal)">
+                {{ goal.achieved ? 'Mark as Not Achieved' : 'Mark as Achieved' }}
+            </button>
+            <button (click)="deleteGoal(goal)">Delete</button>
         </li>
     </ul>
 </div>
