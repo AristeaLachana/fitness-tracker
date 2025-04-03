@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-export interface Workout { 
-  id: number;
-  type: string;
-  duration: number;
-  calories: number;
-  date: Date;
-}
+import { WorkoutService, Workout } from '../workout.service';
 
 @Component({
   selector: 'app-workout-log',
@@ -24,19 +17,31 @@ export class WorkoutLogComponent {
   date: Date | null = null;
   workoutSaved: boolean = false;
 
+  constructor(private workoutService: WorkoutService){
+    this.loadWorkouts();
+  }
+
   logWorkout() {
     if (this.workoutType && this.duration && this.calories && this.date){
       const newWorkout: Workout = {
-        id: this.workouts.length + 1,
+        id: Math.random(),
         type: this.workoutType,
         duration: this.duration,
         calories: this.calories,
-        date: this.date
+        date: this.date,
+        goalAchieved: false
       };
-      this.workouts.push(newWorkout);
+      this.workoutService.addWorkout(newWorkout);
       this.workoutSaved = true;
-      this.resetForm()
+      this.resetForm();
+      this.loadWorkouts();
     }
+  }
+
+  loadWorkouts() {
+    this.workoutService.workouts$.subscribe(workouts => {
+      this.workouts = workouts;
+    })
   }
 
   resetForm() {

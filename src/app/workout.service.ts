@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Workout {
   id: number;
@@ -7,20 +8,46 @@ export interface Workout {
   duration: number;
   calories: number;
   goalAchieved: boolean;
+  date: Date;
+}
+
+export interface Goal {
+  id: number;
+  type: string;
+  targetValue: number;
+  deadline: Date;
+  achieved: boolean;
 }
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class WorkoutService {
-  private workouts: Workout[] = [
-    {id: 1, type: 'Running', duration: 30, calories: 300, goalAchieved: true},
-    {id: 2, type: 'Cycling', duration: 45, calories: 400, goalAchieved: false},
-    {id: 3, type: 'Swimming', duration: 30, calories: 250, goalAchieved: true}
-  ];
+  private workouts: Workout[] = [];
+  private goals: Goal[] = [];
+
+  private workoutsSubject = new BehaviorSubject<Workout[]>(this.workouts);
+  private goalsSubject = new BehaviorSubject<Goal[]>(this.goals);
+
+  workouts$ = this.workoutsSubject.asObservable();
+  goals$ = this.goalsSubject.asObservable();
+
+  addWorkout(workout : Workout) {
+    this.workouts.push(workout);
+    this.workoutsSubject.next(this.workouts);
+  }
+
+  addGoal(goal : Goal) {
+    this.goals.push(goal);
+    this.goalsSubject.next(this.goals);
+  }
 
   constructor() { }
-  getWorkouts(): Observable<Workout[]> {
-    return of(this.workouts);
+  getWorkouts(){
+    return this.workouts;
+  }
+  getGoals() {
+    return this.goals;
   }
 }

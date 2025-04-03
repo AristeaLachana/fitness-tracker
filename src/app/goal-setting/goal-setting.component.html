@@ -4,7 +4,7 @@
         <label for="goalType">Goal Type:</label>
         <input type="text" id="goalType" [(ngModel)]="goalType" name="goalType" required />
 
-        <label for="targetValue">Target Value:</label>
+        <label for="targetValue">Target Weight:</label>
         <input type="number" id="targetValue" [(ngModel)]="targetValue" name="targetValue" required />
 
         <label for="deadline">Deadline:</label>
@@ -18,7 +18,7 @@
     <h3>Your Goals:</h3>
     <ul>
         <li *ngFor="let goal of goals">
-            {{ goal.type }} - Target: {{ goal.targetValue }} by {{ goal.deadline | date}}
+            {{ goal.type }} - Target Weight: {{ goal.targetValue }} by {{ goal.deadline | date}}
             <span *ngIf="goal.achieved">Achieved</span>
         </li>
     </ul>

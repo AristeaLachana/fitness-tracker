@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-export interface Goal {
-  id: number;
-  type: string;
-  targetValue: number;
-  deadline: Date;
-  achieved: boolean;
-}
+import { WorkoutService, Goal } from '../workout.service';
 
 @Component({
   selector: 'app-goal-setting',
@@ -24,6 +17,10 @@ export class GoalSettingComponent {
   deadline: Date | null = null;
   goalSaved: boolean = false;
 
+  constructor(private workoutService: WorkoutService) {
+    this.loadGoals();
+  }
+
   addGoal() {
     if (this.goalType && this.targetValue && this.deadline) {
       const newGoal: Goal = {
@@ -33,10 +30,18 @@ export class GoalSettingComponent {
         deadline: this.deadline,
         achieved: false
       };
-      this.goals.push(newGoal);
+      this.workoutService.addGoal(newGoal);
+      //this.goals.push(newGoal);
+      //this.saveGoals();
       this.goalSaved = true;
       this.resetForm();
     }
+  }
+
+  loadGoals() {
+    this.workoutService.goals$.subscribe(goals => {
+      this.goals = goals;
+    })
   }
 
   resetForm() {
