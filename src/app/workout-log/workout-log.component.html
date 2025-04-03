@@ -1,1 +1,27 @@
-<p>workout-log works!</p>
+<div class="workout-log-container">
+    <h2>Log your Workouts</h2>
+    <form (ngSubmit)="logWorkout()">
+        <label for="workoutType">Workout Type:</label>
+        <input type="text" id="workoutType" [(ngModel)]="workoutType" name="workoutType" required/>
+
+        <label for="duration">Workout Duration:</label>
+        <input type="number" id="duration" [(ngModel)]="duration" name="duration" required/>
+
+        <label for="calories">Calories Burnt:</label>
+        <input type="number" id="calories" [(ngModel)]="calories" name="calories" required/>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" [(ngModel)]="date" name="date" required/>
+
+        <br><button type="submit">Log Workout</button>
+    </form>
+
+    <div *ngIf="workoutSaved">Workout Logged Successfully</div>
+    <br>
+    <h3>Your Workouts:</h3>
+    <ul>
+        <li *ngFor="let workout of workouts">
+            {{ workout.type }} - Duration: {{ workout.duration }} minues, Calories burnt: {{ workout.calories }}, Date: {{ workout.date | date}}
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,44 @@
+.workout-log-container {
+    padding: 20px;
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+h2, h3 {
+    color: #4CAF56;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: square;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+}
